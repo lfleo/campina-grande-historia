@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Domine:wght@400..700&display=swap');
+
+/*
+PALETA DE CORES DO SITE
+
+#F2E4BB
+#D9C2A7
+#F2E2CE
+#F2ECE4
+#594A3C
+*/
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Domine', 'Arial', sans-serif;
+}
+
+body {
+    background-color: #F2ECE4;
+}
+
+header {
+    text-align: center;
+    background-color: #594A3C;
+    color: white;
+    padding: 1rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+}
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    padding: 1rem;
+    background-color: #836f5d;
+    position: fixed;       /* Fixa o menu no topo */
+    width: 100%;
+    z-index: 999;           /* Garante que fique sobre outros elementos */
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+}
+
+nav a:hover {
+    background-color: #6d5b4a;
+    border-radius: 5px;
+}
+
+p {
+    margin-top: 1%;
+    text-align: justify;
+}
+
+.hero {
+    height: 60vh;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://servicodados.ibge.gov.br/api/v1/resize/image?maxwidth=600&maxheight=600&caminho=biblioteca.ibge.gov.br/visualizacao/fotografias/GEBIS%20-%20RJ/pb42998.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin-top: 60px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.section {
+    background: #fff;
+    padding: 2rem;
+    margin: 2rem 0;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 2rem auto;
+}
+
+.timeline-item {
+    padding: 20px;
+    margin: 20px 0;
+    background: #F2ECE4;
+    border-radius: 8px;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.timeline-item:hover {
+    transform: translateX(10px);
+}
+
+.mapa {
+    height: 400px;
+    background-color: #ddd;
+    margin: 2rem 0;
+}
+
+footer {
+    background-color: #594A3C;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+}
+
+.hidden {
+    display: none;
+}
+
+.active {
+    background-color: #594A3C;
+    border-radius: 5px;
+}
