@@ -58,7 +58,7 @@ imagens.forEach(img => {
     imageElement.src = img;
     imageElement.style.width = '350px';
     imageElement.style.margin = '5px';
-    imageElement.style.cursor = 'pointer'; // Mãozinha no mouse
+    imageElement.style.cursor = 'pointer';
 
     imageElement.addEventListener('click', () => {
         abrirGaleria(img);
@@ -83,7 +83,7 @@ function abrirGaleria(imagemSrc) {
     fundo.style.zIndex = '1000';
     fundo.style.cursor = 'pointer';
 
-    // Cria a imagem grande
+    // Amplia a imagem
     const imagemAmpliada = document.createElement('img');
     imagemAmpliada.src = imagemSrc;
     imagemAmpliada.style.maxWidth = '90%';
