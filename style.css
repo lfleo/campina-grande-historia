@@ -1,31 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tangerine:wght@400;700&display=swap');
 
-/*
-PALETA DE CORES DO SITE
+:root {
+  --background: #abd1c6;
+  --background-second: #004643;
+  --headline: #001e1d;
+  --text: #e8e4e6;
 
-#F2E4BB
-#D9C2A7
-#F2E2CE
-#F2ECE4
-#594A3C
-*/
-
+  --font-padrao: 'Noto Sans', 'Arial', sans-serif;
+  --font-titulo: "Tangerine", cursive;
+}
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Noto Sans', 'Arial', sans-serif;
+    font-family: var(--font-padrao);
 }
 
 body {
-    background-color: #F2ECE4;
+    background-color: var(--background);
 }
 
 header {
     text-align: center;
-    background-color: #594A3C;
-    color: white;
+    background-color: var(--background-second);
+    color: var(--text);
     padding: 1rem;
     position: fixed;
     width: 100%;
@@ -33,25 +33,32 @@ header {
     z-index: 100;
 }
 
+header > h1{
+  font-size: 50px;
+  font-family: var(--font-titulo);
+}
+
 nav {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     padding: 1rem;
-    background-color: #836f5d;
-    position: fixed;       /* Fixa o menu no topo */
+    background-color: var(--background-second);
+    position: fixed;
     width: 100%;
-    z-index: 999;           /* Garante que fique sobre outros elementos */
+    z-index: 999;
 }
 
 nav a {
-    color: #fff;
+    font-size: 20px;
+    color: var(--text);
     text-decoration: none;
     padding: 0.5rem 1rem;
-    transition: all 0.3s ease;
+    transition: all 0.5s ease;
 }
 
 nav a:hover {
-    background-color: #6d5b4a;
+    background-color: var(--background);
+    color: var(--background-second);
     border-radius: 5px;
 }
 
@@ -63,7 +70,7 @@ p {
 
 .hero {
     height: 60vh;
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://servicodados.ibge.gov.br/api/v1/resize/image?maxwidth=600&maxheight=600&caminho=biblioteca.ibge.gov.br/visualizacao/fotografias/GEBIS%20-%20RJ/pb42998.jpg');
+    background: linear-gradient(#abd1c6, #00000000), url('https://servicodados.ibge.gov.br/api/v1/resize/image?maxwidth=600&maxheight=600&caminho=biblioteca.ibge.gov.br/visualizacao/fotografias/GEBIS%20-%20RJ/pb42998.jpg');
     background-size: cover;
     background-position: center;
     display: flex;
@@ -73,6 +80,11 @@ p {
     margin-top: 60px;
 }
 
+.hero h2 {
+  font-family: var(--font-titulo);
+  font-size: 150px;
+}
+
 .container {
     max-width: 1200px;
     margin: 2rem auto;
@@ -80,11 +92,16 @@ p {
 }
 
 .section {
-    background: #fff;
+    background: var(--background-second);
+    color: var(--text);
     padding: 2rem;
     margin: 2rem 0;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.section > h2 {
+  color: var(--background);
 }
 
 .timeline {
@@ -96,7 +113,7 @@ p {
 .timeline-item {
     padding: 20px;
     margin: 20px 0;
-    background: #F2ECE4;
+    background: #001e1d;
     border-radius: 8px;
     position: relative;
     cursor: pointer;
@@ -107,28 +124,56 @@ p {
     transform: translateX(10px);
 }
 
+.timeline-item i {
+  transition: transform 0.3s ease;
+  margin-left: 10px;
+}
+
+.timeline-item.active i {
+  transform: rotate(180deg);
+}
+
+.timeline-content {
+  display: none;
+  padding-top: 10px;  
+}
+
+.timeline-item.active .timeline-content {
+  display: block;
+}
+
+.timeline-item h3 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .mapa {
     height: 400px;
-    background-color: #ddd;
     margin: 2rem 0;
 }
 
 footer {
-    background-color: #594A3C;
-    color: white;
-    text-align: center;
-    padding: 1rem;
-    margin-top: 2rem;
+    background-color: var(--background-second);
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-.hidden {
-    display: none;
+footer > p {
+  text-indent: 0;
+  margin: 0;
 }
 
 .active {
-    background-color: #594A3C;
+    background-color: var(--background);
+    color: var(--background-second);
     border-radius: 5px;
 }
+
+/* MEDIA QUERIE */
 
 @media (max-width: 768px) {
     header {
@@ -186,7 +231,7 @@ footer {
       height: auto;
     }
   }
-  
+
   @media (max-width: 480px) {
     h1 {
       font-size: 1.5rem;

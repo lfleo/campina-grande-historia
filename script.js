@@ -8,12 +8,75 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Interatividade na linha do tempo
+// Interatividade na linha do tempo (acordeão)
 document.querySelectorAll('.timeline-item').forEach(item => {
-    item.addEventListener('click', () => {
-        const details = item.querySelector('p');
-        details.classList.toggle('hidden');
+    const icon = item.querySelector('i');
+    const content = item.querySelector('.timeline-content');
+    
+    // Adiciona evento de clique ao cabeçalho
+    item.querySelector('h3').addEventListener('click', (e) => {
+        // Impede que o evento se propague se clicar no ícone
+        if (e.target.tagName === 'I') return;
+        
+        // Fecha todos os outros itens
+        document.querySelectorAll('.timeline-item').forEach(otherItem => {
+            if (otherItem !== item) {
+                otherItem.classList.remove('active');
+                const otherIcon = otherItem.querySelector('i');
+                if (otherIcon) {
+                    otherIcon.classList.remove('fa-chevron-down');
+                    otherIcon.classList.add('fa-chevron-up');
+                }
+            }
+        });
+        
+        // Alterna o item clicado
+        item.classList.toggle('active');
+        
+        // Alterna o ícone
+        if (item.classList.contains('active')) {
+            if (icon) {
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            }
+        } else {
+            if (icon) {
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-up');
+            }
+        }
     });
+    
+    // Adiciona evento de clique ao ícone
+    if (icon) {
+        icon.addEventListener('click', (e) => {
+            e.stopPropagation();
+            
+            // Fecha os outros itens e deixa apenas um aberto
+            document.querySelectorAll('.timeline-item').forEach(otherItem => {
+                if (otherItem !== item) {
+                    otherItem.classList.remove('active');
+                    const otherIcon = otherItem.querySelector('i');
+                    if (otherIcon) {
+                        otherIcon.classList.remove('fa-chevron-down');
+                        otherIcon.classList.add('fa-chevron-up');
+                    }
+                }
+            });
+            
+            // Alterna o item clicado
+            item.classList.toggle('active');
+            
+            // Alterna o ícone
+            if (item.classList.contains('active')) {
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            } else {
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            }
+        });
+    }
 });
 
 // Highlight na navegação
@@ -38,62 +101,92 @@ window.addEventListener('scroll', () => {
 
 // Carregar imagens históricas
 const imagens = [
-    'https://servicodados.ibge.gov.br/api/v1/resize/image?maxwidth=600&maxheight=600&caminho=biblioteca.ibge.gov.br/visualizacao/fotografias/GEBIS%20-%20RJ/pb42868.jpg',
-
-    'https://servicodados.ibge.gov.br/api/v1/resize/image?maxwidth=600&maxheight=600&caminho=biblioteca.ibge.gov.br/visualizacao/fotografias/GEBIS%20-%20RJ/pb42865.jpg',
-    
-    'https://servicodados.ibge.gov.br/api/v1/resize/image?maxwidth=600&maxheight=600&caminho=biblioteca.ibge.gov.br/visualizacao/fotografias/GEBIS%20-%20RJ/PB11120.jpg',
-
-    'https://servicodados.ibge.gov.br/api/v1/resize/image?maxwidth=600&maxheight=600&caminho=biblioteca.ibge.gov.br/visualizacao/fotografias/GEBIS%20-%20RJ/pb42860.jpg',
-
-    'https://servicodados.ibge.gov.br/api/v1/resize/image?maxwidth=600&maxheight=600&caminho=biblioteca.ibge.gov.br/visualizacao/fotografias/GEBIS%20-%20RJ/pb42866.jpg',
-
-    'https://servicodados.ibge.gov.br/api/v1/resize/image?maxwidth=600&maxheight=600&caminho=biblioteca.ibge.gov.br/visualizacao/fotografias/GEBIS%20-%20RJ/PB11116.jpg'
+    { 
+        src: 'https://servicodados.ibge.gov.br/api/v1/resize/image?maxwidth=600&maxheight=600&caminho=biblioteca.ibge.gov.br/visualizacao/fotografias/GEBIS%20-%20RJ/pb42868.jpg',
+        caption: 'Praça Clementino Procópio: 1º Igreja Batista de Campina Grande'
+    },
+    { 
+        src: 'https://servicodados.ibge.gov.br/api/v1/resize/image?maxwidth=600&maxheight=600&caminho=biblioteca.ibge.gov.br/visualizacao/fotografias/GEBIS%20-%20RJ/pb42865.jpg',
+        caption: 'Grande Hotel'
+    },
+    { 
+        src: 'https://servicodados.ibge.gov.br/api/v1/resize/image?maxwidth=600&maxheight=600&caminho=biblioteca.ibge.gov.br/visualizacao/fotografias/GEBIS%20-%20RJ/pb42878.jpg',
+        caption: 'Calçadão da Rua Cardoso Vieira'
+    },
+    { 
+        src: 'https://servicodados.ibge.gov.br/api/v1/resize/image?maxwidth=600&maxheight=600&caminho=biblioteca.ibge.gov.br/visualizacao/fotografias/GEBIS%20-%20RJ/pb42860.jpg',
+        caption: 'Prefeitura Municipal'
+    },
+    { 
+        src: 'https://servicodados.ibge.gov.br/api/v1/resize/image?maxwidth=600&maxheight=600&caminho=biblioteca.ibge.gov.br/visualizacao/fotografias/GEBIS%20-%20RJ/pb42866.jpg',
+        caption: 'Avenida Mal. Floriano Peixoto : Prefeitura Municipal'
+    },
+    { 
+        src: 'https://servicodados.ibge.gov.br/api/v1/resize/image?maxwidth=600&maxheight=600&caminho=biblioteca.ibge.gov.br/visualizacao/fotografias/GEBIS%20-%20RJ/pb42880.jpg',
+        caption: 'Praça da Bandeira : Campina Grande'
+    }
 ];
 
 const imgContainer = document.querySelector('.imagens-historicas');
 
 imagens.forEach(img => {
     const imageElement = document.createElement('img');
-    imageElement.src = img;
+    imageElement.src = img.src;
     imageElement.style.width = '350px';
     imageElement.style.margin = '5px';
     imageElement.style.cursor = 'pointer';
 
+    // Legenda das imagens
+    imageElement.dataset.caption = img.caption;
+
     imageElement.addEventListener('click', () => {
-        abrirGaleria(img);
+        abrirGaleria(img.src, img.caption);
     });
 
     imgContainer.appendChild(imageElement);
 });
 
-// Função para abrir a "galeria"
-function abrirGaleria(imagemSrc) {
-    // Cria o fundo escuro
+function abrirGaleria(imagemSrc, legendaTexto) {
     const fundo = document.createElement('div');
     fundo.style.position = 'fixed';
     fundo.style.top = 0;
     fundo.style.left = 0;
     fundo.style.width = '100%';
     fundo.style.height = '100%';
-    fundo.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+    fundo.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
     fundo.style.display = 'flex';
+    fundo.style.flexDirection = 'column';
     fundo.style.justifyContent = 'center';
     fundo.style.alignItems = 'center';
     fundo.style.zIndex = '1000';
     fundo.style.cursor = 'pointer';
 
-    // Amplia a imagem
+    const containerImagem = document.createElement('div');
+    containerImagem.style.position = 'relative';
+    containerImagem.style.textAlign = 'center';
+
     const imagemAmpliada = document.createElement('img');
     imagemAmpliada.src = imagemSrc;
-    imagemAmpliada.style.maxWidth = '90%';
-    imagemAmpliada.style.maxHeight = '90%';
+    imagemAmpliada.style.maxWidth = '90vw';
+    imagemAmpliada.style.maxHeight = '80vh';
     imagemAmpliada.style.borderRadius = '10px';
-    imagemAmpliada.style.boxShadow = '0 0 20px white';
+    imagemAmpliada.style.objectFit = 'contain';
 
-    fundo.appendChild(imagemAmpliada);
+    const legenda = document.createElement('div');
+    legenda.textContent = legendaTexto;
+    legenda.style.color = 'white';
+    legenda.style.fontSize = '1.2em';
+    legenda.style.marginTop = '15px';
+    legenda.style.padding = '8px 15px';
+    legenda.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+    legenda.style.borderRadius = '5px';
+    legenda.style.maxWidth = '80%';
+    legenda.style.textAlign = 'center';
 
-    // Clicar no fundo fecha
+    containerImagem.appendChild(imagemAmpliada);
+    containerImagem.appendChild(legenda);
+    fundo.appendChild(containerImagem);
+
     fundo.addEventListener('click', () => {
         fundo.remove();
     });
