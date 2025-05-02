@@ -148,6 +148,12 @@ p {
   align-items: center;
 }
 
+.links a {
+  font-style: italic;
+  color: var(--background);
+  text-decoration: none;
+}
+
 .mapa {
     height: 400px;
     margin: 2rem 0;
